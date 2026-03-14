@@ -8,6 +8,8 @@ namespace TodoApp;
 
 public partial class App : Application
 {
+    private string _currentAccentColor = "#E94560";
+
     private async void OnStartup(object sender, StartupEventArgs e)
     {
         // Migrace starých dat
@@ -21,11 +23,18 @@ public partial class App : Application
         var settings = await taskService.GetSettingsAsync();
 
         // Nastavení theme + accent
+        _currentAccentColor = settings.AccentColor;
         SetTheme(settings.IsDarkTheme);
         SetAccentColor(settings.AccentColor);
 
         // Propojení settings s theme a accent
-        mainViewModel.SettingsViewModel.ThemeChanged += isDark => SetTheme(isDark);
+        mainViewModel.SettingsViewModel.ThemeChanged += isDark =>
+        {
+            SetTheme(isDark);
+            // Re-apply accent color after theme switch, because the new theme
+            // dictionary contains default AccentBrush values that can interfere
+            SetAccentColor(_currentAccentColor);
+        };
         mainViewModel.SettingsViewModel.AccentColorChanged += color => SetAccentColor(color);
 
         var mainWindow = new MainWindow
@@ -59,6 +68,8 @@ public partial class App : Application
             var color = (Color)ColorConverter.ConvertFromString(hex);
             var hoverColor = LightenColor(color, 0.2);
             var pressedColor = DarkenColor(color, 0.2);
+
+            _currentAccentColor = hex;
 
             Resources["AccentBrush"] = new SolidColorBrush(color);
             Resources["AccentHoverBrush"] = new SolidColorBrush(hoverColor);

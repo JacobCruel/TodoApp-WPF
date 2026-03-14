@@ -66,50 +66,88 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:CalendarDayViewModel}">
-                    <Border Style="{StaticResource CalendarDayCell}" MinHeight="80"
+                    <Border x:Name="DayCellBorder" Style="{StaticResource CalendarDayCell}" MinHeight="80"
                             Cursor="Hand"
-                            MouseLeftButtonDown="DayCell_Click"
                             Tag="{Binding}">
                         <Border.Background>
                             <SolidColorBrush Color="Transparent"/>
                         </Border.Background>
-                        <StackPanel Margin="4">
-                            <!-- Day number -->
-                            <TextBlock Text="{Binding DayNumber}" FontSize="14"
-                                       HorizontalAlignment="Left">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="{DynamicResource ForegroundSecondary}"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsCurrentMonth}" Value="False">
-                                                <Setter Property="Foreground" Value="{DynamicResource ForegroundMuted}"/>
-                                                <Setter Property="Opacity" Value="0.4"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsToday}" Value="True">
-                                                <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
-                                                <Setter Property="FontWeight" Value="Bold"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                        <Grid>
+                            <StackPanel Margin="4">
+                                <!-- Day number -->
+                                <TextBlock Text="{Binding DayNumber}" FontSize="14"
+                                           HorizontalAlignment="Left">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="{DynamicResource ForegroundSecondary}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsCurrentMonth}" Value="False">
+                                                    <Setter Property="Foreground" Value="{DynamicResource ForegroundMuted}"/>
+                                                    <Setter Property="Opacity" Value="0.4"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsToday}" Value="True">
+                                                    <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
 
-                            <!-- Task indicators -->
-                            <ItemsControl ItemsSource="{Binding Tasks}" Margin="0,4,0,0">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Background="{Binding CategoryColor, Converter={StaticResource HexToColor}}"
-                                                CornerRadius="3" Padding="4,1" Margin="0,1"
-                                                Opacity="0.85" MaxWidth="100">
-                                            <TextBlock Text="{Binding Title}" FontSize="9"
-                                                       Foreground="White"
-                                                       TextTrimming="CharacterEllipsis"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
+                                <!-- Task indicators -->
+                                <ItemsControl ItemsSource="{Binding Tasks}" Margin="0,4,0,0">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{Binding CategoryColor, Converter={StaticResource HexToColor}}"
+                                                    CornerRadius="3" Padding="4,1" Margin="0,1"
+                                                    Opacity="0.85" MaxWidth="100">
+                                                <TextBlock Text="{Binding Title}" FontSize="9"
+                                                           Foreground="White"
+                                                           TextTrimming="CharacterEllipsis"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+
+                            <!-- Add task button (visible on hover) -->
+                            <Button x:Name="AddTaskButton"
+                                    HorizontalAlignment="Right" VerticalAlignment="Top"
+                                    Margin="0,2,2,0" Width="20" Height="20"
+                                    Cursor="Hand" Opacity="0" IsHitTestVisible="False"
+                                    Click="AddTaskButton_Click"
+                                    Tag="{Binding}"
+                                    ToolTip="Add task on this day">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            CornerRadius="10" Width="20" Height="20">
+                                                        <Path Data="{StaticResource PlusIcon}"
+                                                              Fill="White" Width="10" Height="10"
+                                                              Stretch="Uniform"
+                                                              HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
                     </Border>
+                    <DataTemplate.Triggers>
+                        <Trigger SourceName="DayCellBorder" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="AddTaskButton" Property="Opacity" Value="1"/>
+                            <Setter TargetName="AddTaskButton" Property="IsHitTestVisible" Value="True"/>
+                        </Trigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

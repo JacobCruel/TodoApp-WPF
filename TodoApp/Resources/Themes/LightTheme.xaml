@@ -7,7 +7,7 @@
     <SolidColorBrush x:Key="BackgroundTertiary" Color="#E8E8E8"/>
     <SolidColorBrush x:Key="SidebarBackground" Color="#FAFBFC"/>
     <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="DialogOverlay" Color="#CC000000"/>
+    <SolidColorBrush x:Key="DialogOverlay" Color="#DD000000"/>
 
     <!-- Foregrounds -->
     <SolidColorBrush x:Key="ForegroundPrimary" Color="#1F2328"/>
@@ -36,5 +36,27 @@
     <!-- Scrollbar -->
     <SolidColorBrush x:Key="ScrollBarThumb" Color="#C0C0C0"/>
     <SolidColorBrush x:Key="ScrollBarTrack" Color="Transparent"/>
+
+    <!-- ComboBox dropdown item styling -->
+    <Style TargetType="ComboBoxItem">
+        <Setter Property="Background" Value="{DynamicResource BackgroundSecondary}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundPrimary}"/>
+        <Setter Property="Padding" Value="10,6"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource SelectedBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ComboBox selected item text foreground -->
+    <Style TargetType="ComboBox">
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundPrimary}"/>
+    </Style>
 
 </ResourceDictionary>

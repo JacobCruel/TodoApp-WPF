@@ -12,11 +12,10 @@ public partial class CalendarView : UserControl
         InitializeComponent();
     }
 
-    private void DayCell_Click(object sender, MouseButtonEventArgs e)
+    private void AddTaskButton_Click(object sender, RoutedEventArgs e)
     {
         if (sender is FrameworkElement element && element.Tag is CalendarDayViewModel day)
         {
-            // Find MainViewModel through the visual tree
             var mainWindow = Window.GetWindow(this);
             if (mainWindow?.DataContext is MainViewModel mainVm)
             {

@@ -183,7 +183,27 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <!-- Add/Edit Dialog Overlay -->
+        <!-- Empty state -->
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Visibility="{Binding TasksView.IsEmpty, Converter={StaticResource BoolToVisibility}, FallbackValue=Collapsed}">
+            <Path Data="{StaticResource TasksIcon}" Fill="{DynamicResource ForegroundMuted}"
+                  Width="48" Height="48" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,16"/>
+            <TextBlock Text="No tasks yet" FontSize="20" FontWeight="SemiBold"
+                       Foreground="{DynamicResource ForegroundMuted}" HorizontalAlignment="Center"/>
+            <TextBlock Text="Click 'Add Task' to get started" FontSize="13"
+                       Foreground="{DynamicResource ForegroundMuted}" HorizontalAlignment="Center"
+                       Margin="0,8,0,16"/>
+            <Button Style="{StaticResource PrimaryButton}" Command="{Binding OpenAddDialogCommand}"
+                    HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Path Data="{StaticResource PlusIcon}" Fill="White"
+                          Width="14" Height="14" Stretch="Uniform" Margin="0,0,6,0"/>
+                    <TextBlock Text="Add Task"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <!-- Add/Edit Dialog Overlay (must be last in Grid for correct Z-order) -->
         <Border Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="100"
                 Background="{DynamicResource DialogOverlay}"
                 Visibility="{Binding IsDialogOpen, Converter={StaticResource BoolToVisibility}}"
@@ -320,25 +340,5 @@
                 </ScrollViewer>
             </Border>
         </Border>
-
-        <!-- Empty state -->
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Visibility="{Binding TasksView.IsEmpty, Converter={StaticResource BoolToVisibility}, FallbackValue=Collapsed}">
-            <Path Data="{StaticResource TasksIcon}" Fill="{DynamicResource ForegroundMuted}"
-                  Width="48" Height="48" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,16"/>
-            <TextBlock Text="No tasks yet" FontSize="20" FontWeight="SemiBold"
-                       Foreground="{DynamicResource ForegroundMuted}" HorizontalAlignment="Center"/>
-            <TextBlock Text="Click 'Add Task' to get started" FontSize="13"
-                       Foreground="{DynamicResource ForegroundMuted}" HorizontalAlignment="Center"
-                       Margin="0,8,0,16"/>
-            <Button Style="{StaticResource PrimaryButton}" Command="{Binding OpenAddDialogCommand}"
-                    HorizontalAlignment="Center">
-                <StackPanel Orientation="Horizontal">
-                    <Path Data="{StaticResource PlusIcon}" Fill="White"
-                          Width="14" Height="14" Stretch="Uniform" Margin="0,0,6,0"/>
-                    <TextBlock Text="Add Task"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>
     </Grid>
 </UserControl>
