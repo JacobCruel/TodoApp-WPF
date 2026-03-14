@@ -17,7 +17,6 @@ A feature-rich desktop TODO application built with **WPF** and **.NET 8**, follo
 - **CSV Export** — Export tasks to CSV format
 - **Keyboard Shortcuts** — `Ctrl+N` new task, `Ctrl+Z/Y` undo/redo, `Ctrl+D` toggle theme, `Ctrl+E` export, `Ctrl+1-4` navigation
 - **Toast Notifications** — In-app feedback for all actions
-- **Data Migration** — Automatically imports data from the legacy WinForms version on first launch
 
 ## Tech Stack
 
@@ -44,25 +43,6 @@ dotnet run --project TodoApp/TodoApp.csproj
 dotnet publish TodoApp/TodoApp.csproj -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o ./publish
 ```
 
-## Project Structure
-
-```
-TodoApp/
-├── Models/          — TodoTask, Category, Tag, SubTask, Priority, RecurrenceType
-├── Data/            — EF Core DbContext with SQLite
-├── Services/        — TaskService, UndoRedoService, ExportService, DataMigrationService
-├── ViewModels/      — MainViewModel, TaskListViewModel, DashboardViewModel, CalendarViewModel, SettingsViewModel
-├── Views/           — XAML views with data binding
-├── Converters/      — Value converters (PriorityToColor, BoolToVisibility, etc.)
-└── Resources/
-    ├── Themes/      — DarkTheme.xaml, LightTheme.xaml
-    ├── Styles/      — Button, TextBox, Card, CheckBox styles
-    └── Icons/       — SVG path geometries
-```
-
-## Screenshots
-
-*Coming soon*
 
 ## License
 
