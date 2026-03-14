@@ -41,19 +41,19 @@
 
         <!-- Day of week headers -->
         <UniformGrid Grid.Row="2" Columns="7" Margin="0,0,0,8">
-            <TextBlock Text="Mon" HorizontalAlignment="Center" FontSize="12" FontWeight="SemiBold"
+            <TextBlock Text="Mon" HorizontalAlignment="Left" Margin="4,0,0,0" FontSize="12" FontWeight="SemiBold"
                        Foreground="{DynamicResource ForegroundMuted}"/>
-            <TextBlock Text="Tue" HorizontalAlignment="Center" FontSize="12" FontWeight="SemiBold"
+            <TextBlock Text="Tue" HorizontalAlignment="Left" Margin="4,0,0,0" FontSize="12" FontWeight="SemiBold"
                        Foreground="{DynamicResource ForegroundMuted}"/>
-            <TextBlock Text="Wed" HorizontalAlignment="Center" FontSize="12" FontWeight="SemiBold"
+            <TextBlock Text="Wed" HorizontalAlignment="Left" Margin="4,0,0,0" FontSize="12" FontWeight="SemiBold"
                        Foreground="{DynamicResource ForegroundMuted}"/>
-            <TextBlock Text="Thu" HorizontalAlignment="Center" FontSize="12" FontWeight="SemiBold"
+            <TextBlock Text="Thu" HorizontalAlignment="Left" Margin="4,0,0,0" FontSize="12" FontWeight="SemiBold"
                        Foreground="{DynamicResource ForegroundMuted}"/>
-            <TextBlock Text="Fri" HorizontalAlignment="Center" FontSize="12" FontWeight="SemiBold"
+            <TextBlock Text="Fri" HorizontalAlignment="Left" Margin="4,0,0,0" FontSize="12" FontWeight="SemiBold"
                        Foreground="{DynamicResource ForegroundMuted}"/>
-            <TextBlock Text="Sat" HorizontalAlignment="Center" FontSize="12" FontWeight="SemiBold"
+            <TextBlock Text="Sat" HorizontalAlignment="Left" Margin="4,0,0,0" FontSize="12" FontWeight="SemiBold"
                        Foreground="{DynamicResource ForegroundMuted}"/>
-            <TextBlock Text="Sun" HorizontalAlignment="Center" FontSize="12" FontWeight="SemiBold"
+            <TextBlock Text="Sun" HorizontalAlignment="Left" Margin="4,0,0,0" FontSize="12" FontWeight="SemiBold"
                        Foreground="{DynamicResource ForegroundMuted}"/>
         </UniformGrid>
 
