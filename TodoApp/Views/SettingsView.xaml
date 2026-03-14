@@ -1,0 +1,142 @@
+<UserControl x:Class="TodoApp.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer Margin="32,24" VerticalScrollBarVisibility="Auto">
+        <StackPanel MaxWidth="600">
+            <!-- Header -->
+            <TextBlock Text="Settings" FontSize="28" FontWeight="Bold"
+                       Foreground="{DynamicResource ForegroundPrimary}" Margin="0,0,0,8"/>
+            <TextBlock Text="Customize your experience" FontSize="13"
+                       Foreground="{DynamicResource ForegroundSecondary}" Margin="0,0,0,32"/>
+
+            <!-- Appearance section -->
+            <TextBlock Text="APPEARANCE" FontSize="11" FontWeight="SemiBold"
+                       Foreground="{DynamicResource ForegroundMuted}" Margin="0,0,0,12"/>
+
+            <!-- Dark mode toggle -->
+            <Border Style="{StaticResource StatCard}" Margin="0,0,0,16">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
+                        <TextBlock Text="Dark Mode" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource ForegroundPrimary}"/>
+                        <TextBlock Text="Toggle between dark and light theme" FontSize="12"
+                                   Foreground="{DynamicResource ForegroundSecondary}" Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Path Data="{DynamicResource SunIcon}" Width="18" Height="18" Stretch="Uniform"
+                              Fill="{DynamicResource ForegroundSecondary}" Margin="0,0,8,0"/>
+                        <CheckBox IsChecked="{Binding IsDarkTheme}" VerticalAlignment="Center"/>
+                        <Path Data="{DynamicResource MoonIcon}" Width="18" Height="18" Stretch="Uniform"
+                              Fill="{DynamicResource ForegroundSecondary}" Margin="8,0,0,0"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <!-- Accent color -->
+            <Border Style="{StaticResource StatCard}" Margin="0,0,0,32">
+                <StackPanel>
+                    <TextBlock Text="Accent Color" FontSize="14" FontWeight="SemiBold"
+                               Foreground="{DynamicResource ForegroundPrimary}" Margin="0,0,0,4"/>
+                    <TextBlock Text="Choose your preferred accent color" FontSize="12"
+                               Foreground="{DynamicResource ForegroundSecondary}" Margin="0,0,0,12"/>
+
+                    <WrapPanel>
+                        <Button Style="{StaticResource IconButton}" Width="40" Height="40" Margin="0,0,8,8"
+                                Command="{Binding SetAccentColorCommand}" CommandParameter="#E94560">
+                            <Ellipse Width="28" Height="28" Fill="#E94560"/>
+                        </Button>
+                        <Button Style="{StaticResource IconButton}" Width="40" Height="40" Margin="0,0,8,8"
+                                Command="{Binding SetAccentColorCommand}" CommandParameter="#2196F3">
+                            <Ellipse Width="28" Height="28" Fill="#2196F3"/>
+                        </Button>
+                        <Button Style="{StaticResource IconButton}" Width="40" Height="40" Margin="0,0,8,8"
+                                Command="{Binding SetAccentColorCommand}" CommandParameter="#4CAF50">
+                            <Ellipse Width="28" Height="28" Fill="#4CAF50"/>
+                        </Button>
+                        <Button Style="{StaticResource IconButton}" Width="40" Height="40" Margin="0,0,8,8"
+                                Command="{Binding SetAccentColorCommand}" CommandParameter="#FF9800">
+                            <Ellipse Width="28" Height="28" Fill="#FF9800"/>
+                        </Button>
+                        <Button Style="{StaticResource IconButton}" Width="40" Height="40" Margin="0,0,8,8"
+                                Command="{Binding SetAccentColorCommand}" CommandParameter="#9C27B0">
+                            <Ellipse Width="28" Height="28" Fill="#9C27B0"/>
+                        </Button>
+                        <Button Style="{StaticResource IconButton}" Width="40" Height="40" Margin="0,0,8,8"
+                                Command="{Binding SetAccentColorCommand}" CommandParameter="#00BCD4">
+                            <Ellipse Width="28" Height="28" Fill="#00BCD4"/>
+                        </Button>
+                        <Button Style="{StaticResource IconButton}" Width="40" Height="40" Margin="0,0,8,8"
+                                Command="{Binding SetAccentColorCommand}" CommandParameter="#FF5722">
+                            <Ellipse Width="28" Height="28" Fill="#FF5722"/>
+                        </Button>
+                        <Button Style="{StaticResource IconButton}" Width="40" Height="40" Margin="0,0,8,8"
+                                Command="{Binding SetAccentColorCommand}" CommandParameter="#607D8B">
+                            <Ellipse Width="28" Height="28" Fill="#607D8B"/>
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- About section -->
+            <TextBlock Text="ABOUT" FontSize="11" FontWeight="SemiBold"
+                       Foreground="{DynamicResource ForegroundMuted}" Margin="0,0,0,12"/>
+
+            <Border Style="{StaticResource StatCard}">
+                <StackPanel>
+                    <TextBlock Text="TODO App" FontSize="18" FontWeight="Bold"
+                               Foreground="{DynamicResource ForegroundPrimary}"/>
+                    <TextBlock Text="Version 2.0 — WPF Edition" FontSize="12"
+                               Foreground="{DynamicResource ForegroundSecondary}" Margin="0,4,0,8"/>
+                    <TextBlock Text="Built with .NET 8, WPF, Entity Framework Core" FontSize="12"
+                               Foreground="{DynamicResource ForegroundMuted}"/>
+
+                    <Separator Background="{DynamicResource BorderBrush}" Margin="0,16"/>
+
+                    <TextBlock Text="Keyboard Shortcuts" FontSize="14" FontWeight="SemiBold"
+                               Foreground="{DynamicResource ForegroundPrimary}" Margin="0,0,0,8"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Ctrl+N" FontSize="12" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource AccentBrush}" Margin="0,4"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="  New task" FontSize="12"
+                                   Foreground="{DynamicResource ForegroundSecondary}" Margin="0,4"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Ctrl+F" FontSize="12" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource AccentBrush}" Margin="0,4"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="  Search" FontSize="12"
+                                   Foreground="{DynamicResource ForegroundSecondary}" Margin="0,4"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Ctrl+Z" FontSize="12" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource AccentBrush}" Margin="0,4"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="  Undo" FontSize="12"
+                                   Foreground="{DynamicResource ForegroundSecondary}" Margin="0,4"/>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Ctrl+Y" FontSize="12" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource AccentBrush}" Margin="0,4"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="  Redo" FontSize="12"
+                                   Foreground="{DynamicResource ForegroundSecondary}" Margin="0,4"/>
+
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Ctrl+D" FontSize="12" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource AccentBrush}" Margin="0,4"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Text="  Toggle dark mode" FontSize="12"
+                                   Foreground="{DynamicResource ForegroundSecondary}" Margin="0,4"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

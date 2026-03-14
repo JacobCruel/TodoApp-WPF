@@ -1,0 +1,174 @@
+<UserControl x:Class="TodoApp.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:TodoApp.ViewModels"
+             xmlns:local="clr-namespace:TodoApp.Views">
+
+    <Grid Margin="32,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,24">
+            <TextBlock Text="Dashboard" FontSize="28" FontWeight="Bold"
+                       Foreground="{DynamicResource ForegroundPrimary}"/>
+            <TextBlock Text="Overview of your tasks" FontSize="13"
+                       Foreground="{DynamicResource ForegroundSecondary}" Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <!-- Stat cards -->
+        <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,24">
+            <!-- Total -->
+            <Border Style="{StaticResource StatCard}" Margin="0,0,12,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="{StaticResource TasksIcon}" Fill="{DynamicResource InfoBrush}"
+                              Width="18" Height="18" Stretch="Uniform" Margin="0,0,8,0"/>
+                        <TextBlock Text="Total Tasks" FontSize="12"
+                                   Foreground="{DynamicResource ForegroundSecondary}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding TotalTasks}" FontSize="36" FontWeight="Bold"
+                               Foreground="{DynamicResource ForegroundPrimary}" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Completed -->
+            <Border Style="{StaticResource StatCard}" Margin="6,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="{StaticResource CheckIcon}" Fill="{DynamicResource SuccessBrush}"
+                              Width="18" Height="18" Stretch="Uniform" Margin="0,0,8,0"/>
+                        <TextBlock Text="Completed" FontSize="12"
+                                   Foreground="{DynamicResource ForegroundSecondary}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <TextBlock Text="{Binding CompletedTasks}" FontSize="36" FontWeight="Bold"
+                                   Foreground="{DynamicResource SuccessBrush}"/>
+                        <TextBlock Text="{Binding CompletionRate, StringFormat={}{0:F0}%}"
+                                   FontSize="14" Foreground="{DynamicResource ForegroundSecondary}"
+                                   VerticalAlignment="Bottom" Margin="8,0,0,6"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Overdue -->
+            <Border Style="{StaticResource StatCard}" Margin="6,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="{StaticResource CloseIcon}" Fill="{DynamicResource DangerBrush}"
+                              Width="18" Height="18" Stretch="Uniform" Margin="0,0,8,0"/>
+                        <TextBlock Text="Overdue" FontSize="12"
+                                   Foreground="{DynamicResource ForegroundSecondary}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding OverdueTasks}" FontSize="36" FontWeight="Bold"
+                               Foreground="{DynamicResource DangerBrush}" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Due This Week -->
+            <Border Style="{StaticResource StatCard}" Margin="12,0,0,0">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="{StaticResource CalendarIcon}" Fill="{DynamicResource WarningBrush}"
+                              Width="18" Height="18" Stretch="Uniform" Margin="0,0,8,0"/>
+                        <TextBlock Text="Due This Week" FontSize="12"
+                                   Foreground="{DynamicResource ForegroundSecondary}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding DueThisWeek}" FontSize="36" FontWeight="Bold"
+                               Foreground="{DynamicResource WarningBrush}" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Border>
+        </UniformGrid>
+
+        <!-- Bottom section: Completion bar + Upcoming tasks -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Completion progress -->
+            <Border Grid.Column="0" Style="{StaticResource StatCard}">
+                <StackPanel>
+                    <TextBlock Text="Completion Rate" FontSize="16" FontWeight="SemiBold"
+                               Foreground="{DynamicResource ForegroundPrimary}" Margin="0,0,0,20"/>
+
+                    <!-- Visual progress bar -->
+                    <Grid Height="20" Margin="0,0,0,8" x:Name="progressContainer">
+                        <Border Background="{DynamicResource BackgroundTertiary}" CornerRadius="10"/>
+                        <Border Background="{DynamicResource AccentBrush}" CornerRadius="10"
+                                HorizontalAlignment="Left"
+                                MaxWidth="{Binding ActualWidth, ElementName=progressContainer}">
+                            <Border.Width>
+                                <MultiBinding>
+                                    <MultiBinding.Converter>
+                                        <local:PercentWidthConverter/>
+                                    </MultiBinding.Converter>
+                                    <Binding Path="CompletionRate"/>
+                                    <Binding Path="ActualWidth" ElementName="progressContainer"/>
+                                </MultiBinding>
+                            </Border.Width>
+                        </Border>
+                    </Grid>
+
+                    <TextBlock Margin="0,16,0,0" FontSize="42" FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource ForegroundPrimary}">
+                        <TextBlock.Text>
+                            <Binding Path="CompletionRate" StringFormat="{}{0:F0}%"/>
+                        </TextBlock.Text>
+                    </TextBlock>
+
+                    <TextBlock Text="{Binding CompletedTasks, StringFormat='{}{0} tasks completed'}"
+                               FontSize="13" HorizontalAlignment="Center"
+                               Foreground="{DynamicResource ForegroundSecondary}" Margin="0,4,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Upcoming tasks -->
+            <Border Grid.Column="2" Style="{StaticResource StatCard}">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Upcoming Tasks" FontSize="16" FontWeight="SemiBold"
+                               Foreground="{DynamicResource ForegroundPrimary}" Margin="0,0,0,16"/>
+
+                    <ItemsControl ItemsSource="{Binding UpcomingTasks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:TodoTaskViewModel}">
+                                <Border Padding="12,10" Margin="0,0,0,6" CornerRadius="8"
+                                        Background="{DynamicResource BackgroundPrimary}">
+                                    <DockPanel>
+                                        <Ellipse DockPanel.Dock="Left" Width="8" Height="8"
+                                                 Fill="{Binding Priority, Converter={StaticResource PriorityToColor}}"
+                                                 VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                        <TextBlock DockPanel.Dock="Right" Text="{Binding DeadlineText}"
+                                                   FontSize="12" VerticalAlignment="Center"
+                                                   Foreground="{DynamicResource ForegroundSecondary}"
+                                                   Margin="8,0,0,0"/>
+                                        <TextBlock Text="{Binding Title}" FontSize="13"
+                                                   Foreground="{DynamicResource ForegroundPrimary}"
+                                                   VerticalAlignment="Center"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Empty upcoming state -->
+                    <TextBlock Text="All caught up! No upcoming tasks."
+                               FontSize="13" Foreground="{DynamicResource ForegroundMuted}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Visibility="{Binding UpcomingTasks.Count, Converter={StaticResource InverseBoolToVisibility}, FallbackValue=Collapsed}"/>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

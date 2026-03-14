@@ -1,0 +1,28 @@
+## .NET
+bin/
+obj/
+publish/
+
+## IDE
+.vs/
+.vscode/
+*.user
+*.suo
+*.cache
+*.DotSettings.user
+
+## OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+## Build artifacts
+*.exe
+*.dll
+*.pdb
+!TodoApp/app.ico
+
+## Database (local user data)
+*.db
+*.db-shm
+*.db-wal
